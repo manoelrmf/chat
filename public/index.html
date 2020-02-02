@@ -21,6 +21,11 @@
     <script type="text/javascript">
         var socket = io('http://localhost:3000')
 
+
+        function renderMessage(message) {
+            $(".messages").append('<div class="message"><b>' + message.author + '</b>:' + message.message + ' </div>');
+        }
+
         $("#chat").submit(function(e) {
             e.preventDefault();
             var author = $("input[name=username]").val();
@@ -31,6 +36,8 @@
                     author: author,
                     message: message
                 }
+
+                renderMessage(messageObject)
 
                 socket.emit('sendMessage', messageObject)
             }
